@@ -1,10 +1,12 @@
 import os
+import time
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
+from src.utils import beep
 
 
 class BotInterface:
@@ -34,7 +36,11 @@ class BotInterface:
         if "Kein freier Termin verfügbar" in self.driver.page_source:
             print("No free appointment available")
         else:
+            # generate a beeo sound it there is a free appointment
             print("Free appointment available")
+            for i in range(10):
+                beep()
+                time.sleep(15)
 
         self.driver.close()
 
