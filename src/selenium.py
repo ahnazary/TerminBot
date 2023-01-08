@@ -40,6 +40,14 @@ class BotInterface:
         # press ok button
         self.press_button('//*[@id="OKButton"]')
 
+        
+    def press_button(self, XPATH, wait_time: int = 5):
+        button = WebDriverWait(self.driver, wait_time).until(
+            EC.element_to_be_clickable((By.XPATH, XPATH))
+        )
+        self.driver.execute_script("arguments[0].click()", button)
+
+    def check_for_appointment(self):
         # check if "Kein freier Termin verfügbar" text is present
         if "Kein freier Termin verfügbar" in self.driver.page_source:
             print("No free appointment available")
@@ -49,9 +57,3 @@ class BotInterface:
             for i in range(10):
                 beep()
                 time.sleep(15)
-
-    def press_button(self, XPATH, wait_time: int = 5):
-        button = WebDriverWait(self.driver, wait_time).until(
-            EC.element_to_be_clickable((By.XPATH, XPATH))
-        )
-        self.driver.execute_script("arguments[0].click()", button)

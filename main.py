@@ -3,9 +3,10 @@ import time
 from src.selenium import BotInterface
 
 bot = BotInterface()
+bot.get_to_third_step()
 
-# checks for empty slots every 5 minutes
+# checks for empty slots every 10 seconds
 while True:
-    bot.get_to_third_step()
+    bot.check_for_appointment()
     time.sleep(10)
-    print("Checking again in 5 minutes...")
+    print("Checking again in 10 seconds ...")
