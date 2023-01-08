@@ -49,14 +49,21 @@ class BotInterface:
     def check_for_appointment(self):
         # check if "Kein freier Termin verfügbar" text is present
         if "Kein freier Termin verfügbar" in self.driver.page_source:
-            print("No free appointment available")
+            print(f"No free appointment available at {time.ctime()}")
             # refresh the page
             self.driver.refresh()
             # scroll down to the bottom of the page
-            self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+            self.driver.execute_script(
+                "window.scrollTo(0, document.body.scrollHeight);"
+            )
         else:
-            # generate a beeo sound it there is a free appointment
-            print("Free appointment available")
+            # scroll down to the bottom of the page
+            self.driver.execute_script(
+                "window.scrollTo(0, document.body.scrollHeight);"
+            )
+
+            # generate a beep sound if there is a free appointment and print the current time
+            print(f"Free appointment available at {time.ctime()}")
             for i in range(10):
                 beep()
                 time.sleep(15)
