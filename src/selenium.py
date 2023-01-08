@@ -11,12 +11,21 @@ from src.utils import beep
 class BotInterface:
     def __init__(self):
         driverPath = (
-            os.path.abspath(os.path.dirname(__file__)) + "/chromedriver_linux64/chromedriver"
+            os.path.abspath(os.path.dirname(__file__))
+            + "/chromedriver_linux64/chromedriver"
         )
         self.driver = webdriver.Chrome(driverPath)
         self.driver.get("https://termine.staedteregion-aachen.de/auslaenderamt/?rs")
 
+        # maximize window
+        self.driver.maximize_window()
+
     def get_to_third_step(self):
+
+        # accept cookies
+        self.press_button('//*[@id="cookie_msg_btn_yes"]')
+
+        # go to second step
         self.press_button('//*[@id="buttonfunktionseinheit-1"]')
 
         # click on the superC drop down menu
@@ -40,8 +49,6 @@ class BotInterface:
             for i in range(10):
                 beep()
                 time.sleep(15)
-
-        self.driver.close()
 
     def press_button(self, XPATH, wait_time: int = 5):
         button = WebDriverWait(self.driver, wait_time).until(

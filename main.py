@@ -7,5 +7,5 @@ bot = BotInterface()
 # checks for empty slots every 5 minutes
 while True:
     bot.get_to_third_step()
-    time.sleep(300)
+    time.sleep(10)
     print("Checking again in 5 minutes...")
