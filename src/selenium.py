@@ -40,7 +40,6 @@ class BotInterface:
         # press ok button
         self.press_button('//*[@id="OKButton"]')
 
-        
     def press_button(self, XPATH, wait_time: int = 5):
         button = WebDriverWait(self.driver, wait_time).until(
             EC.element_to_be_clickable((By.XPATH, XPATH))
@@ -51,6 +50,10 @@ class BotInterface:
         # check if "Kein freier Termin verfügbar" text is present
         if "Kein freier Termin verfügbar" in self.driver.page_source:
             print("No free appointment available")
+            # refresh the page
+            self.driver.refresh()
+            # scroll down to the bottom of the page
+            self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
         else:
             # generate a beeo sound it there is a free appointment
             print("Free appointment available")
